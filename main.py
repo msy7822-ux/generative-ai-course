@@ -35,7 +35,7 @@ def wait_on_run(run, thread):
     return run
 
 
-# my_assistant = openai.beta.assistants.create(
+# assistant = openai.beta.assistants.create(
 #     name="Prompt Engineer Bot",
 #     description="Transformerモデルについて詳しいアシスタントです。",
 #     model="gpt-4-1106-preview",
@@ -44,7 +44,7 @@ def wait_on_run(run, thread):
 #     file_ids=[file.id],
 # )
 
-my_assistant = openai.beta.assistants.create(
+assistant = openai.beta.assistants.create(
     name="Math Tutor",
     instructions="You are a personal math tutor. Answer questions briefly, in a sentence or less.",
     model="gpt-4-1106-preview",
@@ -75,7 +75,7 @@ message = openai.beta.threads.messages.create(
 
 run = openai.beta.threads.runs.create(
     thread_id=thread_id,
-    assistant_id=my_assistant.id,
+    assistant_id=assistant.id,
 )
 
 wait_on_run(run, thread)
