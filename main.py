@@ -1,40 +1,18 @@
 import os
 from dotenv import load_dotenv
 import openai
+import utils
 
 load_dotenv()
 
 api_key = os.getenv("OPENAI_API_KEY")
 openai.api_key = api_key
 
-import base64
-
-
-def encode_image(image_path):
-    with open(image_path, "rb") as image_file:
-        return base64.b64encode(image_file.read()).decode("utf-8")
-
-
 # Fileのアップロード
 file = openai.files.create(
     file=open("./attention_is_all_you_need.pdf", "rb"),
     purpose="assistants",
 )
-
-print(file)
-import time
-
-
-# run, threadが非同期関数？
-def wait_on_run(run, thread):
-    while run.status == "queued" or run.status == "in_progress":
-        run = openai.beta.threads.runs.retrieve(
-            thread_id=thread.id,
-            run_id=run.id,
-        )
-        time.sleep(0.5)
-    return run
-
 
 assistant = openai.beta.assistants.create(
     name="Prompt Engineer Bot",
@@ -44,13 +22,6 @@ assistant = openai.beta.assistants.create(
     tools=[{"type": "retrieval"}, {"type": "code_interpreter"}],
     file_ids=[file.id],
 )
-
-import json
-
-
-def show_json(obj):
-    print(json.loads(obj.model_dump_json()))
-
 
 thread = openai.beta.threads.create()
 thread_id = thread.id
@@ -66,7 +37,7 @@ run = openai.beta.threads.runs.create(
     assistant_id=assistant.id,
 )
 
-wait_on_run(run, thread)
+utils.wait_on_run(run, thread)
 messages = openai.beta.threads.messages.list(
     thread_id=thread.id, order="asc", after=message.id
 )
