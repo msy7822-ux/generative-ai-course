@@ -25,7 +25,6 @@ def summarize_images_with_gemini() -> Dict[str, List[Any]]:
     image_dir = "/Users/msy/ai/generative-ai-course/gemini/public/output/"
 
     for image_file_name in sorted(os.listdir(image_dir)):
-        print(image_file_name)
         if image_file_name.endswith(".jpg"):
             image_file_path = os.path.join(image_dir, image_file_name)
 
@@ -51,6 +50,7 @@ def summarize_images_with_gemini() -> Dict[str, List[Any]]:
             response = summarize_model(
                 [HumanMessage(content=[text_message, image_message])]
             )
+
             image_summaries_list.append(response.content)
             images_dict = {
                 "image_list": image_base64_list,
