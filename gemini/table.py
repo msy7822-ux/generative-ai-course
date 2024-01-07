@@ -48,7 +48,3 @@ def summarize_tables_with_gemini(
     }
 
     return tables_dict
-
-
-if __name__ == "__main__":
-    tables_dict = summarize_tables_with_gemini(tables_list=tables)

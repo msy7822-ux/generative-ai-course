@@ -14,7 +14,7 @@ def image_to_base64(image_path: str) -> str:
 
 
 # Gemini Pro Visionにて画像の説明を行い、説明結果とbase64を返却する
-def summarize_images_with_gemini(image_dir: str) -> Dict[str, List[Any]]:
+def summarize_images_with_gemini() -> Dict[str, List[Any]]:
     image_base64_list = []
     image_summaries_list = []
     image_summary_prompt = """
@@ -22,7 +22,10 @@ def summarize_images_with_gemini(image_dir: str) -> Dict[str, List[Any]]:
     基本的には日本語で回答してほしいですが、専門用語や固有名詞を用いて説明をする際には英語のままで構いません。
     """
 
+    image_dir = "/Users/msy/ai/generative-ai-course/gemini/public/output/"
+
     for image_file_name in sorted(os.listdir(image_dir)):
+        print(image_file_name)
         if image_file_name.endswith(".jpg"):
             image_file_path = os.path.join(image_dir, image_file_name)
 
@@ -55,11 +58,3 @@ def summarize_images_with_gemini(image_dir: str) -> Dict[str, List[Any]]:
             }
 
     return images_dict
-
-
-if __name__ == "__main__":
-    dataset_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "datasets")
-
-    images_dict = summarize_images_with_gemini(
-        image_dir=os.path.join(dataset_dir, "images")
-    )
