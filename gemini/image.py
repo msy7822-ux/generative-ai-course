@@ -17,6 +17,7 @@ def image_to_base64(image_path: str) -> str:
 def summarize_images_with_gemini() -> Dict[str, List[Any]]:
     image_base64_list = []
     image_summaries_list = []
+    images_dict = {}
     image_summary_prompt = """
     入力された画像の内容を詳細に説明してください。
     基本的には日本語で回答してほしいですが、専門用語や固有名詞を用いて説明をする際には英語のままで構いません。

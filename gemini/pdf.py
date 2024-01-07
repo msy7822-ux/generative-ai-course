@@ -5,7 +5,7 @@ path = "/Users/msy/ai/generative-ai-course/"
 
 
 def partition_pdf_by_element_type() -> Tuple[List[str], List[str]]:
-    pdf_file_name = "datasets/attention_is_all_you_need.pdf"
+    pdf_file_name = "datasets/sample_invoice.pdf"
 
     loaded_pdf = partition_pdf(
         filename=path + pdf_file_name,
